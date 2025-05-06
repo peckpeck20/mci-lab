@@ -8,40 +8,45 @@ sh = SenseHat()
 sh.color.gain = 60
 sh.color.integration_cycles = 64
 
-def display_warning(message, color):
-    # Display a scrolling message on the LED matrix
-    sh.show_message(message, text_colour=color)
+def get_board_temperature():
+    try:
+        with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+            temp_str = f.read().strip()
+            return float(temp_str) / 1000.0
+    except:
+        return 0.0  # Return 0 if the temperature can't be read
 
 def fetch_data():
-        # display_warning("Hello Big BoI :D",(0, 255, 255))
-        temperature = sh.get_temperature()
-        pressure = sh.get_pressure()
-        humidity = sh.get_humidity()
-        red, green, blue, clear = sh.colour.colour
-        orientation = sh.get_orientation()
-        compass = sh.get_compass_raw()
-        acceleration = sh.get_accelerometer_raw()
-        gyro = sh.get_gyroscope_raw()
+    room_temperature = sh.get_temperature()
+    board_temp = get_board_temperature()
+    pressure = sh.get_pressure()
+    humidity = sh.get_humidity()
+    orientation = sh.get_orientation()
+    compass = sh.get_compass_raw()
+    acceleration = sh.get_accelerometer_raw()
+    gyro = sh.get_gyroscope_raw()
 
-        return [temperature, pressure, humidity, \
-                acceleration["x"], acceleration["y"], \
-                acceleration["z"], orientation["yaw"], \
-                orientation["pitch"], orientation["roll"], \
-                compass["x"], compass["y"], compass["z"], \
-                gyro["x"], gyro["y"], gyro["z"], \
-                red, green, blue, clear]
-
+    return [
+        room_temperature, board_temp, pressure, humidity,
+        acceleration["x"], acceleration["y"], acceleration["z"],
+        orientation["yaw"], orientation["pitch"], orientation["roll"],
+        compass["x"], compass["y"], compass["z"],
+        gyro["x"], gyro["y"], gyro["z"]
+    ]
 
 if __name__ == "__main__":
+    print("Running")
 
-        with open("data.csv", "w") as out_file:
-                out_file.write("temperature,pressure,humidity,acc_x,acc_y,acc_z,orientation_yaw,orientation_pitch,orientation_roll,compass_x,compass_y,compass_z,gyro_x,gyro_y,gyro_z,red,green,blue,clear\n")
+    with open("data.csv", "w") as out_file:
+        out_file.write("timestamp,room_temperature,board_temp,pressure,humidity,"
+                       "acc_x,acc_y,acc_z,orientation_yaw,orientation_pitch,orientation_roll,"
+                       "compass_x,compass_y,compass_z,gyro_x,gyro_y,gyro_z\n")
 
-        with open("data.csv", "a") as out_file:
-                while True:
-                        data = fetch_data()
-                        data = [str(value) for value in data]
-                        data_string = ",".join(data)+"\n"
-                        out_file.write(data_string)
-                        sleep(2)
-        print("finised")
+    with open("data.csv", "a") as out_file:
+        while True:
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            data = fetch_data()
+            data.insert(0, timestamp)
+            data_string = ",".join(map(str, data)) + "\n"
+            out_file.write(data_string)
+            sleep(1)
