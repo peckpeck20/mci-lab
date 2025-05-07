@@ -28,6 +28,8 @@ nohup python3 bigboy.py > out.log 2>&1 & disown
 
 ```
 rsync -avz ./bigboy.py pi4@192.168.88.253:~/Desktop/day1/
+
+rsync -avz ./mqtt.py pi4@192.168.88.253:~/Desktop/day3/
 ```
 
 # Copy data results to local machine
