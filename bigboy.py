@@ -4,7 +4,7 @@ from time import sleep
 from sense_hat import SenseHat
 
 # ─── Settings ────────────────────────────────────────────────────────────────
-ROTATE_EVERY  = timedelta(minutes=10)   # change to timedelta(minutes=10) etc.
+ROTATE_EVERY  = timedelta(minutes=30)   # change to timedelta(minutes=10) etc.
 SAMPLE_PERIOD = 1                    # seconds between readings
 LOG_DIR  = "logs"
 DATA_DIR = "collectedData"
