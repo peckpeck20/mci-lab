@@ -24,6 +24,12 @@ python3 bigboy.py
 nohup python3 bigboy.py > out.log 2>&1 & disown
 ```
 
+# View background script
+
+```
+ps -C python3 -o pid,etime,cmd | grep bigboy.py
+```
+
 # Upload script to pi4
 
 ```
@@ -37,6 +43,8 @@ rsync -avz ./mqtt.py pi4@192.168.88.253:~/Desktop/day3/
 ```
 scp pi4@192.168.88.253:~/Desktop/day1/data.csv ./
 
+#Copy all
+scp -r pi4@192.168.88.253:~/Desktop/day1/collectedData/ ./collectedData
 ```
 
 ## Node-RED
