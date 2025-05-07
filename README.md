@@ -12,10 +12,16 @@ ssh pi4@192.168.88.253
 cd Desktop/day1
 ```
 
-## Run script
+## Run script locally
+
+## Start script via SSH
 
 ```
+#Run script
 python3 bigboy.py
+
+#Run script in background
+nohup python3 bigboy.py > out.log 2>&1 & disown
 ```
 
 # Upload script to pi4
