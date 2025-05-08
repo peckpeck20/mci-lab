@@ -30,16 +30,18 @@ python3 bigboy.py
 
 #Run script in background
 nohup python3 bigboy.py > out.log 2>&1 & disown
-
-#Stop script
-
-pkill -f bigboy.py
 ```
 
-# View background script
+# Verify if script is running in the background
 
 ```
 ps -C python3 -o pid,etime,cmd | grep bigboy.py
+```
+
+# Stop script
+
+```
+pkill -f bigboy.py
 ```
 
 # Upload script to pi4
