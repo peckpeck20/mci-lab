@@ -1,5 +1,13 @@
 # MCI-lab
 
+# Setup ENV
+
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install pandas
+```
+
 # SSH - Remote access pi4
 
 ```
