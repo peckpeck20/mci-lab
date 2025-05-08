@@ -30,6 +30,10 @@ python3 bigboy.py
 
 #Run script in background
 nohup python3 bigboy.py > out.log 2>&1 & disown
+
+#Stop script
+
+pkill -f bigboy.py
 ```
 
 # View background script
