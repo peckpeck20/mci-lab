@@ -20,8 +20,6 @@ ssh pi4@192.168.88.253
 cd Desktop/day1
 ```
 
-## Run script locally
-
 ## Start script via SSH
 
 ```
