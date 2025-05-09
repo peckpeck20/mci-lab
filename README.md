@@ -55,10 +55,14 @@ rsync -avz ./mqtt.py pi4@192.168.88.253:~/Desktop/day3/
 # Copy data results to local machine
 
 ```
-scp pi4@192.168.88.253:~/Desktop/day1/data.csv ./
+rsync -avz --ignore-existing pi4@192.168.88.253:~/Desktop/day1/collectedData/ ./collectedData/
+```
 
-#Copy all
-scp -r pi4@192.168.88.253:~/Desktop/day1/collectedData/ ./collectedData
+# Combine collected data into 1 dataset
+
+```
+python3 combineData.py
+
 ```
 
 ## Node-RED
