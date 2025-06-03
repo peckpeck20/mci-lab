@@ -53,7 +53,7 @@ for comment in submission.comments.list():
 
 # Save to datasets/ folder in project root
 datasets_path = Path(__file__).resolve().parents[1] / "datasets"
-output_file = datasets_path / "final_reddit_dataset.json"
+output_file = datasets_path / "reddit_dataset.json"
 
 with open(output_file, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
